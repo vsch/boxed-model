@@ -1,0 +1,40 @@
+{
+  "name": "boxed-model",
+  "version": "0.1.0",
+  "private": false,
+  "description": "library for implmenting extendable Models, persitence compatible with React component state",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Vladimir Schneider",
+    "email": "vladimir@vladsch.com",
+    "url": "https://github.com/vsch"
+  },
+  "bundleDependencies": [],
+  "dependencies": {
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isstring": "^4.0.1",
+    "util-string-wrap": "^0.1.0",
+    "util-type-funcs": "^0.2.4",
+    "for-each-break": "^0.2.0",
+    "obj-each-break": "^0.1.2",
+    "boxed-out": "^0.1.0",
+    "boxed-state": "^0.8.4"
+  },
+  "devDependencies": {
+    "jest-each": "^0.5.0"
+  },
+  "scripts": {},
+  "keywords": [
+    "immutable",
+    "model"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vsch/boxed-model.git"
+  },
+  "homepage": "https://github.com/vsch/boxed-model",
+  "bugs": {
+    "url": "https://github.com/vsch/boxed-model/issues"
+  }
+}
