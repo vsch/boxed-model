@@ -404,6 +404,10 @@ describe(`throws on reserved fields`, () => {
             static get defaultValues() {
                 return {exists: 0};
             }
+
+            static get modelProps() {
+                return {exists: 0};
+            }
         }
 
         expect(() => {
@@ -420,6 +424,10 @@ describe(`throws on inherited fields`, () => {
             }
 
             static get defaultValues() {
+                return {a1: 0};
+            }
+
+            static get modelProps() {
                 return {a1: 0};
             }
         }

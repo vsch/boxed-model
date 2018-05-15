@@ -265,7 +265,7 @@ class Model {
     static defineModel(modelSubClass) {
         const defaultValues = modelSubClass.hasOwnProperty("defaultValues") && modelSubClass.defaultValues || {};
         const copiedProps = modelSubClass.hasOwnProperty("copiedProps") && modelSubClass.copiedProps || defaultValues;
-        const modelProps = modelSubClass.hasOwnProperty("modelProps") && modelSubClass.modelProps || copiedProps || defaultValues;
+        const modelProps = modelSubClass.hasOwnProperty("modelProps") && modelSubClass.modelProps || {};
 
         if (defaultValues && !isObject(defaultValues)) {
             throw `IllegalArgument, defaultValues argument must be a plain object, got ${defaultValues}`;
@@ -301,7 +301,16 @@ class Model {
         });
 
         addPropKeys(resolvedReservedProps, reservedProps, undefined, `reserved Model property`);
-        addPropDescription(propDescriptions, modelProps, resolvedReservedProps);
+
+        // modelProps are a union of defaults, copiedProps and modelProps, but defaults and copiedProps have any resolved props removed before
+        // being added to modelProps
+        const unionModelProps = {};
+        addPropKeys(unionModelProps, defaultValues);
+        addPropKeys(unionModelProps, copiedProps);
+        deletePropKeys(unionModelProps, resolvedReservedProps);
+        addPropKeys(unionModelProps, modelProps);
+
+        addPropDescription(propDescriptions, unionModelProps, resolvedReservedProps);
 
         Object.assign(resolvedDefaults, defaultValues);
         addPropKeys(resolvedCopiedProps, copiedProps);

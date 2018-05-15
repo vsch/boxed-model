@@ -37,6 +37,44 @@ props});` to save properties for the model. This allows the model to get/set its
 a React component's state. Set the `stateHolder` to React components `this` and provide the name
 under which to store the model's properties.
 
+
+|        Static Methods of Model        |                                                                                            Description                                                                                            |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| defineModel(modelSubClass)            | resolve model properties, default values and copied properties, define prototype property getters/setters, freeze model. Must be called on the model class before it is used to create instances. |
+| copyFromTo(src, dst, props, defaults) | copy properties from src to dst given by props property name array, apply defaults for any missing values from src                                                                                |
+| get defaultValues()                   | object of properties and their default values, any object or array value will be deep cloned before assignment to property                                                                        |
+| get copiedProps()                     | object of properties or array of property keys to use for copying properties of the model, `defaultValues` will be used if none provided                                                          |
+| get modelProps()                      | object of properties or array of property keys to use for defining properties of the model, a superset of `modelProps`, `defaultValues` and `copiedProps` will be used                            |
+
+Model prototype methods:
+
+|                    Property                    |                                                                                                                               Description                                                                                                                                |
+|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| constructor(options) *                         | create a new model. Options provide get/set mechanism for model properties                                                                                                                                                                                               |
+| save(callback)                                 | commit changes to model properties                                                                                                                                                                                                                                       |
+| cancel()                                       | cancel any uncommitted changes to model properties                                                                                                                                                                                                                       |
+| isDirty(attributes)                            | return true if any attributes are modified in the model                                                                                                                                                                                                                  |
+| mapRequest(request) **                         | `copiedProps` are copied from the model to request, then called for each model subclass to map its properties to the request. Only properties which are modified or not part of the model need to be handled here. The rest are already copied when the call is made.    |
+| mapResponse(response) **                       | `copiedProps` are copied from response to model, then called for each model subclass to map its properties from server response. Only properties which are modified or not part of the model need to be handled here. The rest are already copied when the call is made. |
+| toRequest()                                    | get server request representing model's current properties (any changed properties not yet saved will be used)                                                                                                                                                           |
+| loadResponse(response, clearToDefaults = true) | load the model properties from the server response, model's `exists` property will be set to `true`                                                                                                                                                                      |
+| exists                                         | boolean property set when model is loaded from a server response                                                                                                                                                                                                         |
+| dirty                                          | property object representing changed first level properties of the model or `undefined` if no changes since `save()` or `cancel()`                                                                                                                                       |
+
+\* options allow the model to store its properties with the model instance, using a get/set
+property object functions or to use the React component's state object. When a model uses
+external property storage, instantiating the model on existing properties does not change the
+properties. It is possible to have multiple models using the same properties, however, modifying
+the properties should be done via only one of the instances at a time since each model keeps
+track of changes in its own instance.
+
+\** These should only copy the properties concerning the model not its parent models unless
+parent model's copying needs to be modified. After copying model properties to request or from
+response, the base model implementations are called in reverse prototype chain order. So a
+model's parent's `mapResponse` or `mapRequest` will be called before teh model's own
+implementation.
+
+
 ```javascript
 const {Model} = require('boxed-model');
 
