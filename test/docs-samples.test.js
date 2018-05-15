@@ -37,8 +37,8 @@ describe(`README`, () => {
         }
 
         /**
-         *  Initializes the model's prototype with getters/setters for properties, consolidates inherited properties
-         *  validates properties not to be already defined in super classes or reserved by Model class.
+         *  Initializes the model's prototype with getters/setters for properties, consolidates inherited properties and defaults
+         *  validates properties not to conflict with already defined ones in super classes or reserved by Model class.
          */
         Model.defineModel(Book);
 

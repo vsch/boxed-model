@@ -1,5 +1,5 @@
 const {boxState} = require("boxed-state");
-const {objSome} = require('obj-each-break');
+const {objSome, mergeDefaults} = require('obj-each-break');
 const {isArray, isFunction, isObject, isObjectLike, forAllPrototypes, callPrototypeChainDown} = require('util-type-funcs');
 
 const UNDEFINED = void 0;
@@ -194,7 +194,10 @@ class Model {
             this.props = {};
         }
 
-        Model.copyFromTo({}, this.props, Object.keys(this.constructor.defaultValues), this.constructor.defaultValues);
+        // only set values which are missing right on the props
+        const props = Object.assign({}, this.props);
+        mergeDefaults.call(props, this.constructor.defaultValues, 1, false, true);
+        this.props = props;
         this.props_$.cancel();
 
         // can bind but should not be necessary unless these are passed as function refs

@@ -309,6 +309,54 @@ describe(`model getState/setState props`, () => {
     });
 });
 
+describe(`model getState/setState props re-hydrate from props`, () => {
+    test(`model A`, () => {
+        const stateHolder = new State();
+        const a = new A({
+            stateHolder: stateHolder,
+            stateName: "a",
+        });
+        a.a1 = 2;
+        a.a2 = "3";
+        a.a3 = "a3";
+        a.save();
+
+        const aCopy = new A({
+            stateHolder: stateHolder,
+            stateName: "a",
+        });
+        expect(stateHolder.state.a).toEqual(Object.assign({}, aDefaults, {a1: 2, a2: "3", a3: "a3"}));
+
+        const req = aCopy.toRequest();
+        expect(req).toEqual({a1_: 2, a2: "3", a3: "a3"});
+    });
+
+    test(`model B`, () => {
+        const stateHolder = new State();
+        const b = new B({
+            stateHolder: stateHolder,
+            stateName: "b",
+        });
+
+        b.a1 = 2;
+        b.a2 = "3";
+        b.a3 = "a3";
+        b.b1 = 4;
+        b.b2 = "4";
+        b.b3 = "b3";
+        b.save();
+
+        const bCopy = new B({
+            stateHolder: stateHolder,
+            stateName: "b",
+        });
+        expect(stateHolder.state.b).toEqual(Object.assign({}, aDefaults, bDefaults, {a1: 2, a2: "3", a3: "a3", b1: 4, b2: "4", b3: "b3"}));
+
+        const req = bCopy.toRequest();
+        expect(req).toEqual({"a1_": 2, "a2": "3", "a3": "a3", "b1_": 4, "b2": "4", "b3": "b3"});
+    });
+});
+
 describe(`model loads response exists set`, () => {
     test(`model A`, () => {
         const stateHolder = new State();
