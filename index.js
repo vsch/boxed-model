@@ -182,7 +182,6 @@ class Model {
                         configurable: false,
                     },
                 });
-
             } else {
                 throw `IllegalArgument, options must be { getState: function(), setState: function(modified, boxed, callback),} or { stateName: propertyName, stateHolder: objectInstance,}, got ${JSON.stringify(options)}`;
             }
@@ -198,7 +197,6 @@ class Model {
         const props = Object.assign({}, this.props);
         mergeDefaults.call(props, this.constructor.defaultValues, 1, false, true);
         this.props = props;
-        this.props_$.cancel();
 
         // can bind but should not be necessary unless these are passed as function refs
         // this.save = this.save.bind(this);
@@ -225,12 +223,11 @@ class Model {
         if (!isObjectLike(dst)) throw `IllegalArgument, destination is not object, got ${dst}`;
 
         const defaultValues = defaults ? Object.assign({}, defaults) : {};
-        const keys = props;
-        if (keys) {
-            if (!isArray(keys)) throw `IllegalArgument, keysForCopy should return an array of property keys, got ${keys}`;
-            const iMax = keys.length;
+        if (props) {
+            if (!isArray(props)) throw `IllegalArgument, props should be an array of property keys, got ${props}`;
+            const iMax = props.length;
             for (let i = 0; i < iMax; i++) {
-                const key = keys[i];
+                const key = props[i];
                 const srcValue = src[key];
                 if (srcValue !== UNDEFINED) {
                     dst[key] = srcValue;
@@ -389,7 +386,7 @@ class Model {
      */
     mapRequest(request) {
 
-    };
+    }
 
     /**
      * Map server response fields which are not directly mapped to model fields
@@ -399,7 +396,7 @@ class Model {
      */
     mapResponse(response) {
 
-    };
+    }
 
     /**
      *  Convert Model to shape expected by back-end request using mappingToRequest
@@ -423,7 +420,8 @@ class Model {
      *
      *  @this {Model}            model instance to load with server response
      *  @param response   server response shape of the model
-     *  @param clearToDefaults {boolean} if true model will first be cleared to default values
+     *  @param clearToDefaults {boolean} if true model fields not copied from response will
+     *          be set to default values or deleted if default value is undefined
      *
      *  @return {Model}    model's this
      */

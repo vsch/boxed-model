@@ -2,11 +2,17 @@
 
 [TOC]: # " "
 
+- [0.1.8](#018)
 - [0.1.6](#016)
 - [0.1.4](#014)
 - [0.1.2](#012)
 - [0.1.0](#010)
 
+
+## 0.1.8
+
+* Change: `Model.copyFromTo`, `props` argument to array of keys from previous object whose keys
+  were extracted dynamically.
 
 ## 0.1.6
 
