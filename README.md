@@ -1,6 +1,6 @@
 # boxed-model
 
-[![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
+[![experimental](https://badges.github.io/stability-badges/dist/experimental.svg)](https://github.com/badges/stability-badges)
 
 Implements a base Model whose property storage and modification is compatible with React
 component state, model inheritance, optional mapping to back-end request shape and mapping from
@@ -164,12 +164,12 @@ class Book extends Model {
     static get defaultValues() {
         return {bookId: 0, title: "", price: 0.00, pages: 0,};
     }
-    
+
     mapRequest(req) {
         delete req.bookId;
         req.id = this.bookId;
     }
-    
+
     mapResponse(res) {
         this.bookId = res.id;
     }
