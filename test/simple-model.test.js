@@ -1,6 +1,6 @@
 "use strict";
 
-const jestEach = require('jest-each');
+const jestEach = require('jest-each').default;
 const {Model} = require('boxed-model');
 
 const aDefaults = {a1: 0, a2: "2", a3: null,};

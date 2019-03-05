@@ -1,6 +1,6 @@
 {
   "name": "boxed-model",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "private": false,
   "description": "library for implmenting extendable Models, persitence compatible with React component state",
   "main": "index.js",
@@ -14,15 +14,16 @@
   "dependencies": {
     "lodash.isfunction": "^3.0.9",
     "lodash.isstring": "^4.0.1",
-    "util-string-wrap": "^0.1.0",
-    "util-type-funcs": "^0.2.4",
-    "for-each-break": "^0.2.0",
-    "obj-each-break": "^0.1.8",
-    "boxed-out": "^0.1.2",
-    "boxed-state": "^0.8.6"
+    "util-string-wrap": "^0.1.2",
+    "util-type-funcs": "^0.2.8",
+    "for-each-break": "^0.2.2",
+    "obj-each-break": "^0.1.10",
+    "boxed-out": "^0.1.4",
+    "boxed-state": "^0.8.8"
   },
   "devDependencies": {
-    "jest-each": "^23.5.0"
+    "jest": "^24.0.0",
+    "jest-each": "^24.0.0"
   },
   "scripts": {},
   "keywords": [
