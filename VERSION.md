@@ -2,6 +2,7 @@
 
 [TOC]: # " "
 
+- [0.1.12](#0112)
 - [0.1.10](#0110)
 - [0.1.8](#018)
 - [0.1.6](#016)
@@ -9,6 +10,16 @@
 - [0.1.2](#012)
 - [0.1.0](#010)
 
+
+## 0.1.12
+
+* Fix: update jest version
+* Fix: update `util-string-wrap`
+* Fix: update `util-type-funcs`
+* Fix: update `for-each-break`
+* Fix: update `obj-each-break`
+* Fix: update `boxed-out`
+* Fix: update `boxed-state`
 
 ## 0.1.10
 
