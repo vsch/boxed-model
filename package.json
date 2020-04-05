@@ -1,6 +1,6 @@
 {
   "name": "boxed-model",
-  "version": "0.1.14",
+  "version": "0.1.16",
   "private": false,
   "description": "library for implementing extendable Models, persistence compatible with React component state",
   "main": "index.js",
@@ -19,7 +19,7 @@
     "for-each-break": "^0.2.6",
     "obj-each-break": "^0.1.14",
     "boxed-out": "^0.1.8",
-    "boxed-state": "^0.8.12"
+    "boxed-state": "^0.8.14"
   },
   "devDependencies": {
     "jest": "^25.2.6",
